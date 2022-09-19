@@ -18,14 +18,12 @@ class Spotify:
     def _headers(self):
         return {"Authorization": f"Bearer {self.sp_oauth.get_access_token()}"}
 
-
-
     def int_request(self, method, url):
         url = self.prefix + url
         req = request(method, url, headers=self._headers())
         if req.status_code == 200:
             return req.json()
-            
+
     def _get(self, url):
         return self.int_request("GET", url)
 
@@ -43,7 +41,7 @@ class Spotify:
 
     def user_queue(self):
         return self._get("me/player/queue")
-    
+
     def pause_playback(self):
         return self._put("me/player/pause")
 
@@ -68,6 +66,6 @@ class Spotify:
 
     def _get_uri(self, id):
         if id.startswith("spotify:") and len(id.split(":")) == 3:
-            return id 
+            return id
         else:
             return f"spotify:track:{id}"

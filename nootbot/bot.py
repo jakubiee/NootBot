@@ -79,17 +79,21 @@ class Bot:
     def play(self, message):
         if self.is_mod(message):
             self.sp.start_playback()
-            self.irc.send_privmsg(f"@{self.message_author(message)} resumed SongRequest")
+            self.irc.send_privmsg(
+                f"@{self.message_author(message)} resumed SongRequest"
+            )
 
     def skip(self, message):
         if self.is_mod(message):
             self.sp.skip_playback()
-            self.irc.send_privmsg(f"@{self.message_author(message)} skipped the current song")
+            self.irc.send_privmsg(
+                f"@{self.message_author(message)} skipped the current song"
+            )
 
     def volume(self, message):
         if message["command"]["bot_command_params"]:
             volume = int(message["command"]["bot_command_params"][0])
-            if volume.endswith('%'):
+            if volume.endswith("%"):
                 volume = volume.replace("%", "")
 
             if self.is_mod(message):
@@ -135,7 +139,9 @@ class Bot:
             duration = response["duration_ms"] / 60000
             url = response["external_urls"]["spotify"]
             if duration > 7:
-                self.irc.send_privmsg(f"@{self.message_author(message)} This song is too long")
+                self.irc.send_privmsg(
+                    f"@{self.message_author(message)} This song is too long"
+                )
             else:
                 self.sp.add_to_queue(song_uri)
                 self.irc.send_privmsg(
@@ -145,4 +151,3 @@ class Bot:
             self.irc.send_privmsg(
                 f"@{self.message_author(message)} This song doesn't exist."
             )
-
