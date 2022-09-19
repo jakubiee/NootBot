@@ -1,5 +1,6 @@
 import socket
 
+
 class Irc:
     irc_server = "irc.chat.twitch.tv"
     oauth = None

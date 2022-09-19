@@ -80,13 +80,8 @@ class SpotifyOauth:
 
     def _refresh_token(self):
         token_url = "https://accounts.spotify.com/api/token"
-        headers = {
-            "Authorization": "Basic " + self._get_base64_message()
-        }
-        data = {
-            "grant_type": "refresh_token",
-            "refresh_token": self.refresh_token
-        }
+        headers = {"Authorization": "Basic " + self._get_base64_message()}
+        data = {"grant_type": "refresh_token", "refresh_token": self.refresh_token}
         response = requests.post(token_url, headers=headers, data=data).json()
         self.access_token = response["access_token"]
         expires_in = response["expires_in"]
