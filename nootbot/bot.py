@@ -52,8 +52,13 @@ class Bot:
             if command["bot_command"] in self.commands:
                 self.commands[command["bot_command"]](message)
 
+    def is_broadcaster(self, message):
+        if "broadcaster" in message["tags"]["badges"]:
+            if message["tags"]["badges"]["broadcaster"] == 1:
+                return True
+
     def is_mod(self, message):
-        if message["tags"]["mod"] == "1":
+        if self.is_broadcaster(message) or message["tags"]["mod"] == "1":
             return True
 
     def message_author(self, message):
