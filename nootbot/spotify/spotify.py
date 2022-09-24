@@ -7,7 +7,7 @@ class Spotify:
     auth_token = None
     client_id = None
     client_secret = None
-    scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state"
+    scopes = "user-read-currently-playing user-read-playback-state user-modify-playback-state user-read-recently-played"
     prefix = "https://api.spotify.com/v1/"
 
     def __init__(self, client_id=None, client_secret=None):
@@ -38,6 +38,9 @@ class Spotify:
 
     def playback_state(self):
         return self._get("me/player")
+
+    def recently_played(self):
+        return self._get("me/player/recently-played?limit=1")
 
     def user_queue(self):
         return self._get("me/player/queue")
