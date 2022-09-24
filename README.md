@@ -22,6 +22,7 @@ python3 main.py
     - `!ping` - Checks if the bot is online
     - `!song` - Shows the current song
     - `!sr {song_name}` - Adds song to the queue
+    - `!last` - Shows the previous song
 - Moderator commands
     - `!pause` - Stops the music
     - `!play` - Turns on the music
