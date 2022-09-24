@@ -20,6 +20,7 @@ class Bot:
             "play": self.play,
             "volume": self.volume,
             "sr": self.add_song,
+            "last": self.last_song,
         }
         self.irc = Irc(
             token=os.getenv("OAUTH_TOKEN"),
@@ -75,6 +76,15 @@ class Bot:
         url = response["item"]["external_urls"]["spotify"]
         response_message = f"@{self.message_author(message)} Now playing {artist} - {song_name} [{url}]"
         self.irc.send_privmsg(response_message)
+
+    def last_song(self, message):
+        response = self.sp.recently_played()
+        if response["items"]:
+            artist = response["items"][0]["track"]["artists"][0]["name"]
+            song_name = response["items"][0]["track"]["name"]
+            url = response["items"][0]["track"]["external_urls"]["spotify"]
+            response_message = f"@{self.message_author(message)} Previous song {artist} - {song_name} [{url}]"
+            self.irc.send_privmsg(response_message)
 
     def pause(self, message):
         if self.is_mod(message):
